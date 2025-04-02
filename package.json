@@ -1,11 +1,14 @@
 {
   "name": "lupine.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "author": "uuware.com",
   "homepage": "https://uuware.com/",
   "description": "LupineJs is a React-like, extremely fast, small size and lightweight frontend framework.",
-  "repository": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uuware/lupine.js.git"
+  },
   "main": "src/index.ts",
   "source": "src/index.ts",
   "types": "src/index.ts",
@@ -36,6 +39,7 @@
   ],
   "scripts": {
     "note": "echo 'build is not needed as the typescript code is supposed to be referred directly from other projects'",
+    "npm-publish": "npm publish --access public",
     "build": "tsc"
   },
   "peerDependencies": {
