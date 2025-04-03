@@ -16,7 +16,9 @@ export type JsonKeyValue = {
 };
 export type JsonObject =
   | JsonKeyValue[]
-  | { [key: string]: string | number | boolean | null | undefined | JsonKeyValue | JsonKeyValue[] };
+  | {
+      [key: string]: string | number | boolean | null | undefined | JsonKeyValue | JsonKeyValue[];
+    };
 export const cloneJson = (json: JsonObject) => {
   return <JsonObject>JSON.parse(JSON.stringify(json));
 };

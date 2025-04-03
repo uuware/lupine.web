@@ -40,7 +40,12 @@ export const getMetaDataTags = () => {
 export const getMetaDataObject = () => {
   const metaDescription = getMetaDescription();
   return metaDescription
-    ? Object.assign({ 'name:description': `<meta name="description" content="${metaDescription}">` }, _metaData)
+    ? Object.assign(
+        {
+          'name:description': `<meta name="description" content="${metaDescription}">`,
+        },
+        _metaData
+      )
     : _metaData;
 };
 

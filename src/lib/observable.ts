@@ -20,7 +20,11 @@ export class Observable<T> {
 }
 
 export class Subject<T> extends Observable<T> {
-  private observers: { next?: (value: T) => void; error?: (error: any) => void; complete?: () => void }[] = [];
+  private observers: {
+    next?: (value: T) => void;
+    error?: (error: any) => void;
+    complete?: () => void;
+  }[] = [];
   private isStopped = false;
   private _hasError = false;
   private passLastMsgWhenSubscribe;

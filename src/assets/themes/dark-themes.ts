@@ -4,9 +4,9 @@ export const darkThemes = {
   ...sharedThemes,
   '--theme-name': 'dark',
 
-  '--scrollbar-bg': '#50505005',
-  '--scrollbar-thumb-bg': '#80808050',
-  '--scrollbar-active-thumb-bg': '#b0b0b050',
+  '--scrollbar-bg': '#1c1c1c',
+  '--scrollbar-thumb-bg': '#373636',
+  '--scrollbar-active-thumb-bg': '#5b5b5b',
 
   '--primary-color': '#aeaeae',
   '--primary-color-disabled': '#7d7d7d',

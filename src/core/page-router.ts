@@ -34,6 +34,7 @@ export class PageRouter {
   // the path should start with / and end without /, and it can be
   //    /aaa/:bbb/ccc/:ddd (ccc is a fixed section)
   //    /aaa/:bbb/ccc/?ddd/?eee (from ddd, all sections are optional)
+  //    /aaa/:?bbb/ccc/ (from bbb, all sections are optional)
   private storeRouter(path: string, handler: (PageRouterCallback | PageRouter)[]) {
     let fixedPath;
     if (path === '*' || path === '' || path === '/*') {
@@ -91,7 +92,11 @@ export class PageRouter {
         let meet = true;
         if (routerList.parameterVariables.length > 0) {
           meet = false;
-          const restPath = url.substring(routerList.path.length + 1).split('/');
+          let newUrl = url.substring(routerList.path.length + 1);
+          if (newUrl.endsWith('/')) {
+            newUrl = newUrl.substring(0, newUrl.length - 1);
+          }
+          const restPath = newUrl.split('/');
           // the path must have mandatory parameters but some parameters can be optional
           if (
             restPath.length >= routerList.parameterLength &&
@@ -114,7 +119,10 @@ export class PageRouter {
           for (let j = 0, router; (router = routerList.handler[j]); j++) {
             if (router instanceof PageRouter) {
               // it's a sub-level router
-              const nextPath = routerList.path === '*' ? url : url.substring(routerList.path.length);
+              const nextPath =
+                routerList.path === '*' || (url === '/' && routerList.path === '/')
+                  ? url
+                  : url.substring(routerList.path.length);
               // TODO: sub-level?
               const vNode = await router.handleRoute(nextPath, props, renderPartPage);
               if (vNode) {

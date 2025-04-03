@@ -5,9 +5,9 @@ export const lightThemes = {
   '--theme-name': 'light',
 
   // scroll bar
-  '--scrollbar-bg': '#65656505',
-  '--scrollbar-thumb-bg': '#55555510',
-  '--scrollbar-active-thumb-bg': '#35353520',
+  '--scrollbar-bg': '#d5d5d5',
+  '--scrollbar-thumb-bg': '#979797',
+  '--scrollbar-active-thumb-bg': '#737373',
 
   '--primary-color': '#303030',
   '--primary-color-disabled': '#a0a0a0',

@@ -39,7 +39,7 @@ function webEnv(key: string, defaultValue: any): any {
     }
     return defaultValue;
   }
-  return _webEnv[key];
+  return _webEnv[key] || defaultValue;
 }
 // this is only called from the server side for SSR
 function initWebEnv(webEnv: { [key: string]: string }) {
@@ -87,7 +87,7 @@ function webSetting(key: string, defaultValue: any): any {
     }
     return defaultValue;
   }
-  return _webSetting[key];
+  return _webSetting[key] || defaultValue;
 }
 // this is only called from the server side for SSR
 function initWebSetting(webSetting: { [key: string]: string }) {

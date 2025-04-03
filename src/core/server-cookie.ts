@@ -1,6 +1,7 @@
 import { DomUtils } from '../lib';
 import { ISimpleStorage } from '../models/simple-storage-props';
 
+// getEitherCookie can be used in both FE and SSR
 export const getEitherCookie = (name: string) => {
   if (typeof window === 'undefined') {
     // SSR
