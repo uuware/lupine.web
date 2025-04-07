@@ -2,19 +2,22 @@ import { mountComponents } from '../core';
 import { RefProps } from '../jsx';
 
 // const modalData = { layerCount: 0 };
+export type ShowModalProps = {
+  title: string;
+  children: any;
+  contentMaxHeight?: string;
+  buttons?: string[];
+  handleClicked: (index: number, closeHandler: () => void) => void;
+  closeWhenClickOutside?: boolean;
+};
 export const showModal = async ({
   title,
   children,
   contentMaxHeight,
   buttons,
   handleClicked,
-}: {
-  title: string;
-  children: any;
-  contentMaxHeight?: string;
-  buttons?: string[];
-  handleClicked: (index: number, closeHandler: () => void) => void;
-}) => {
+  closeWhenClickOutside,
+}: ShowModalProps) => {
   const close = () => {
     const modal = document.querySelector('.modal-body.animation');
     if (modal) {
@@ -43,6 +46,7 @@ export const showModal = async ({
       buttons={newButtons}
       handleClicked={update}
       contentMaxHeight={contentMaxHeight}
+      closeWhenClickOutside={closeWhenClickOutside}
     >
       {children}
     </Modal>

@@ -1,18 +1,25 @@
+import { CssProps } from "../jsx";
+
 export type TextLoadingProps = {
   text: string;
+  color?: string;
+  padding?: string;
+  fontSize?: string;
+  fontWeight?: string;
 };
-export const WaveText = (props: TextLoadingProps) => {
-  const cssMap: any = {};
+export const TextWave = (props: TextLoadingProps) => {
+  const cssMap: CssProps = {};
   props.text.split('').forEach((char, index) => {
     cssMap[`.span${index}`] = { animationDelay: `${index * 0.1}s` };
   });
-  const css: any = {
+  const css: CssProps = {
     width: `100%`,
     height: `100%`,
-    padding: '10px',
     textAlign: 'center',
-    fontSize: '20px',
-    color: '#22b8ff',
+    color: props.color || '#22b8ff',
+    padding: props.padding || '10px',
+    fontSize: props.fontSize || '20px',
+    fontWeight: props.fontWeight,
     textShadow: '1px -1px #ffffff, -2px 2px #999, -6px 7px 3px #131f5be6',
     '.text-loading.wave-animetion span': {
       display: 'inline-block',

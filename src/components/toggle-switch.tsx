@@ -8,6 +8,7 @@ export enum ToggleSwitchSize {
 
 export type ToggleSwitchUpdateProps = {
   setState?: (checked: boolean) => void;
+  getValue?: () => boolean;
 };
 
 export type ToggleSwitchProps = {
@@ -19,12 +20,13 @@ export type ToggleSwitchProps = {
 export const ToggleSwitch = (props: ToggleSwitchProps) => {
   const refCheck: RefProps = {};
   if (props.update) {
+    props.update.getValue = () => refCheck.current.checked;
     props.update.setState = (checked: boolean) => {
       refCheck.current.checked = checked;
     };
   }
   const css: CssProps = {
-    // justifyContent: 'center',
+    alignSelf: 'center',
     '.ts-switch': {
       position: 'relative',
       display: 'inline-block',

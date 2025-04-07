@@ -22,6 +22,7 @@ export type TabsProps = {
   pagePadding?: string;
   refUpdate?: TabsUpdateProps;
 };
+// For CSS or query selectors, please pay attention to that Tabs can be nested
 export const Tabs = ({ pages, defaultIndex, topClassName, pagePadding, refUpdate }: TabsProps) => {
   const ref: RefProps = {};
   let newIndex = typeof defaultIndex === 'number' ? defaultIndex : 0;
@@ -193,6 +194,8 @@ export const Tabs = ({ pages, defaultIndex, topClassName, pagePadding, refUpdate
         // 'border-bottom': '2px solid red',
         color: 'var(--activatable-color-selected)',
         backgroundColor: 'var(--activatable-bg-color-selected)',
+        marginBottom: '-1px',
+        borderBottom: '1px solid #FFFFFF00',
       },
       '> div > .tab > .modal-close': {
         display: 'none',
@@ -212,12 +215,17 @@ export const Tabs = ({ pages, defaultIndex, topClassName, pagePadding, refUpdate
     '> .pages': {
       display: 'flex',
       flex: '1',
+      position: 'relative',
       '> .page': {
         display: 'none',
+        position: 'absolute',
         padding: pagePadding || '0px',
         overflow: 'auto',
         width: '100%',
+        maxWidth: '100%',
         height: '100%',
+        overflowX: 'auto',
+        overflowY: 'auto',
       },
       '> .active': {
         display: 'inline-block',
