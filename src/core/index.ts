@@ -10,3 +10,5 @@ export * from './page-loaded-events';
 export * from './page-router';
 export * from './replace-innerhtml';
 export * from './server-cookie';
+export * from './web-version';
+
