@@ -19,9 +19,6 @@ export type JsonObject =
   | {
       [key: string]: string | number | boolean | null | undefined | JsonKeyValue | JsonKeyValue[];
     };
-export const cloneJson = (json: JsonObject) => {
-  return <JsonObject>JSON.parse(JSON.stringify(json));
-};
 
 export type RenderPageFunctionsType = {
   fetchData: (url: string, postBody?: string | JsonObject, returnRawResponse?: boolean) => Promise<any>;
