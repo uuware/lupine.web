@@ -1,16 +1,23 @@
 import { mountComponents } from '../core';
-import { CssProps, RefProps } from '../jsx';
+import { CssProps, RefProps, VNode } from '../jsx';
 import { stopPropagation } from '../lib';
 
-export type FloatWindowReturnProps = { close: () => void; base: HTMLElement };
+export type FloatWindowCloseProps = () => void;
+
 export type FloatWindowShowProps = {
   title: string;
-  children: any;
+  children: VNode<any>;
   buttons?: string[];
+  contentMaxHeight?: string;
+  contentMinWidth?: string;
   noMoving?: boolean;
-  handleClicked: (index: number, sender: FloatWindowReturnProps) => void;
+  noModal?: boolean;
+  closeEvent?: () => void;
+  handleClicked: (index: number, close: FloatWindowCloseProps) => void;
+  closeWhenClickOutside?: boolean; // default false
 };
 
+// because it's over a mask, so it can use primary colors
 export class FloatWindow {
   static hostNode: HTMLElement;
 
@@ -29,73 +36,45 @@ export class FloatWindow {
   static async show({
     title,
     children,
+    contentMaxHeight,
+    contentMinWidth,
     buttons,
     noMoving = false,
+    noModal = false,
+    closeEvent,
     handleClicked,
-  }: FloatWindowShowProps): Promise<FloatWindowReturnProps> {
-    const cssContainer: CssProps = {
-      position: 'fixed',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%) scale(0.1)',
-      color: 'var(--primary-color)',
-      backgroundColor: 'var(--cover-bg-color)', //'#fefefe',
-      border: 'var(--primary-border)', //'1px solid #888',
-      borderRadius: '6px',
-      maxWidth: '90%',
-      boxShadow: 'var(--cover-box-shadow)', //'#0000004c 0px 19px 38px, #00000038 0px 15px 12px',
-      opacity: 0,
-      zIndex: 'var(--layer-float-window)',
-      '&.transition': {
-        transition: 'all 0.3s',
-      },
-      '&.animation': {
-        transform: 'translate(-50%, -50%) scale(1)',
-        opacity: 1,
-      },
-      '&.animation-close': {
-        transition: 'all 0.3s',
-        transform: 'translate(-50%, -50%) scale(0)',
-        opacity: 0,
-      },
-      '.fwin-title': {
-        padding: '10px 15px 5px',
-        borderBottom: 'var(--primary-border)', //'1px solid #e9ecef',
-        '.fwin-close': {
-          color: '#aaaaaa',
-          float: 'right',
-          fontSize: '26px',
-          fontWeight: 'bold',
-          cursor: 'pointer',
-          marginTop: '-8px',
-          marginRight: '-10px',
-        },
-        '.fwin-close:hover': {
-          transition: 'all 300ms ease',
-          color: '#555555',
-        },
-      },
-      '.fwin-content': {
-        padding: '15px',
-      },
-      '.fwin-bottom': {
-        display: 'flex',
-        padding: '5px 15px',
-        borderTop: 'var(--primary-border)', //'1px solid #e9ecef',
-        justifyContent: 'end',
-        '>div': {
-          // cursor: 'pointer',
-          // border: '1px solid #aaaaaa',
-          // paddingLeft: '10px',
-          // borderRadius: '5px',
-          // padding: '3px 15px',
-          marginLeft: '5px',
-        },
-        // '>div:hover': {
-        //   backgroundColor: '#eeeeee',
-        //   transition: 'all 300ms ease',
-        // },
-      },
+    closeWhenClickOutside = false,
+  }: FloatWindowShowProps): Promise<FloatWindowCloseProps> {
+    const onClickContainer = (event: any) => {
+      if (closeWhenClickOutside !== false && event.target.className === 'fwin-box') {
+        handleClose();
+      }
+    };
+    const handleClose = () => {
+      closeEvent?.();
+      ref.current.classList.add('transition');
+      ref.current.classList.remove('animation');
+      setTimeout(() => {
+        base.remove();
+      }, 300);
+    };
+
+    const base = document.createElement('div');
+    const onMousedown = (event: any) => {
+      if (noMoving) return;
+
+      if (!this.initialized) {
+        this.initialized = true;
+        this.init();
+      }
+
+      FloatWindow.hostNode = ref.current;
+      FloatWindow.onMousedown.bind(FloatWindow)(event);
+    };
+
+    const newButtons = !buttons || buttons.length === 0 ? ['OK', 'Cancel'] : buttons;
+    const onClickButtons = (index: number) => {
+      handleClicked(index, handleClose);
     };
 
     const ref: RefProps = {
@@ -107,60 +86,101 @@ export class FloatWindow {
         }, 300);
       },
     };
-
-    const handleClose = () => {
-      ref.current.classList.add('transition');
-      ref.current.classList.remove('animation');
-      setTimeout(() => {
-        base.remove();
-      }, 300);
-    };
-
-    const base = document.createElement('div');
-    const sender = { close: handleClose, base };
-
-    const onMousedown = (event: any) => {
-      if (!this.initialized) {
-        this.initialized = true;
-        this.init();
-      }
-
-      FloatWindow.hostNode = document.querySelector(`.fwin-box[${ref.id}]`)!;
-      !noMoving && FloatWindow.onMousedown.bind(FloatWindow)(event);
-    };
-
-    const newButtons = !buttons || buttons.length === 0 ? ['OK', 'Cancel'] : buttons;
-    const onClickButtons = (index: number) => {
-      handleClicked(index, sender);
+    const cssContainer: CssProps = {
+      position: noModal ? '' : 'fixed',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      backgroundColor: noModal ? '' : 'var(--cover-mask-bg-color)',
+      '.fwin-body': {
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%) scale(0.1)',
+        color: 'var(--primary-color)',
+        backgroundColor: 'var(--cover-bg-color)', //'#fefefe',
+        border: 'var(--primary-border)', //'1px solid #888',
+        borderRadius: '6px',
+        minWidth: contentMinWidth ? contentMinWidth : '',
+        maxWidth: '90%',
+        boxShadow: 'var(--cover-box-shadow)', //'#0000004c 0px 19px 38px, #00000038 0px 15px 12px',
+        opacity: 0,
+        zIndex: 'var(--layer-float-window)',
+        '&.transition': {
+          transition: 'all 0.3s',
+        },
+        '&.animation': {
+          transform: 'translate(-50%, -50%) scale(1)',
+          opacity: 1,
+        },
+        '&.animation-close': {
+          transition: 'all 0.3s',
+          transform: 'translate(-50%, -50%) scale(0)',
+          opacity: 0,
+        },
+        '.fwin-title': {
+          padding: '10px 15px 5px',
+          borderBottom: 'var(--primary-border)', //'1px solid #e9ecef',
+          '.fwin-close': {
+            color: '#aaaaaa',
+            float: 'right',
+            fontSize: '26px',
+            fontWeight: 'bold',
+            cursor: 'pointer',
+            marginTop: '-8px',
+            marginRight: '-10px',
+          },
+          '.fwin-close:hover': {
+            transition: 'all 300ms ease',
+            color: '#555555',
+          },
+        },
+        '.fwin-content': {
+          padding: '15px',
+          maxHeight: contentMaxHeight ? `min(${contentMaxHeight}, calc(100% - 100px))` : 'calc(100% - 100px)',
+          overflowY: 'auto',
+        },
+        '.fwin-bottom': {
+          display: 'flex',
+          padding: '5px 15px',
+          borderTop: 'var(--primary-border)', //'1px solid #e9ecef',
+          justifyContent: 'end',
+          '>div': {
+            marginLeft: '5px',
+          },
+        },
+      },
     };
     const component = (
-      <div ref={ref} class='fwin-box' css={cssContainer} onMouseDown={onMousedown}>
-        <div class='fwin-title'>
-          {title}
-          <span class='fwin-close' onClick={handleClose}>
-            ×
-          </span>
-        </div>
-        <div class='fwin-content'>{children}</div>
-        <div class='fwin-bottom'>
-          {newButtons.map((i, index) => (
-            <div
-              class='button-base button-s'
-              onClick={() => {
-                onClickButtons(index);
-              }}
-            >
-              {i}
-            </div>
-          ))}
+      <div css={cssContainer} class='fwin-box' onClick={onClickContainer}>
+        <div ref={ref} class='fwin-body' onMouseDown={onMousedown}>
+          <div class='fwin-title'>
+            {title}
+            <span class='fwin-close' onClick={handleClose}>
+              ×
+            </span>
+          </div>
+          <div class='fwin-content'>{children}</div>
+          <div class='fwin-bottom'>
+            {newButtons.map((i, index) => (
+              <button
+                class='button-base button-s mr-m'
+                onClick={() => {
+                  onClickButtons(index);
+                }}
+              >
+                {i}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     );
     base.style.position = 'fixed';
     document.body.appendChild(base);
-    await mountComponents(base, <div>{component}</div>);
-
-    return sender;
+    await mountComponents(base, component);
+    return handleClose;
   }
 
   static onMousedown(event: any) {

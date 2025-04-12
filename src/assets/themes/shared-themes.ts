@@ -1,13 +1,13 @@
 export const sharedThemes = {
   // z-index
   '--layer-cover': '10',
-  '--layer-float-window': '100',
-  '--layer-sidebar': '200',
-  '--layer-sidebar-sub': '201',
+  '--layer-sidebar': '100',
+  '--layer-sidebar-sub': '110',
+  '--layer-float-window': '200',
   '--layer-modal': '300',
   '--layer-modal-over': '310',
   '--layer-notice': '400',
-  '--layer-menu': '410',
+  '--layer-menu': '410', // popup menu
   '--layer-menu-sub': '411',
   '--layer-tooltip': '420',
   '--layer-dragged-item': '500',

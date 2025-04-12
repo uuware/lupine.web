@@ -4,6 +4,7 @@ export * from './debug-watch';
 export * from './deep-merge';
 export * from './document-ready';
 export * from './dynamical-load';
+export * from './format-bytes';
 export * from './lite-dom';
 export * from './logger';
 export * from './message-hub';

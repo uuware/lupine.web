@@ -52,6 +52,7 @@ export const MenuSidebar = ({
     '.menu-sidebar-item': {
       display: 'inline-block',
       color,
+      cursor: 'pointer',
       padding: '14px 16px',
       textDecoration: 'none',
       position: 'relative',

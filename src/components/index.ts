@@ -6,6 +6,7 @@ export * from './link-list';
 export * from './menu-bar';
 export * from './menu-item-props';
 export * from './menu-sidebar';
+export * from './message-box';
 export * from './meta-data';
 export * from './meta-title';
 export * from './meta-description';
