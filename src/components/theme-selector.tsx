@@ -21,7 +21,6 @@ export const ThemeSelector = ({ className, css }: ThemeSelectorProps) => {
   bindGlobalStyles('theme-switch', '.theme-switch', newCss);
   const handleSelected = (themeName: string) => {
     updateTheme(themeName);
-    document.documentElement.setAttribute('data-theme', themeName);
   };
   const currentTheme = getCurrentTheme();
   const list = [];

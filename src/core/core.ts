@@ -3,7 +3,7 @@ import { VNode } from '../jsx';
 import { initWebEnv, initWebSetting } from '../lib';
 import { Logger } from '../lib/logger';
 import { generateAllGlobalStyles } from './bind-styles';
-import { defaultThemeName, getCurrentTheme } from './bind-theme';
+import { defaultThemeName, getCurrentTheme, updateTheme } from './bind-theme';
 import { mountComponents } from './mount-components';
 // import { callPageResetEvent } from './page-reset-events';
 import { PageRouter } from './page-router';
@@ -162,6 +162,7 @@ export const initializePage = async (newUrl?: string) => {
 
   // generateAllGlobalStyles will be updated directly in Browser
   await mountComponents('.lupine-root', jsxNodes);
+  updateTheme(getCurrentTheme().themeName);
 
   // title
   document.title = getMetaTitle();
