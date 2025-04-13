@@ -26,7 +26,7 @@ export type RenderPageFunctionsType = {
 };
 export interface PageProps {
   url: string;
-  urlSections: string[];
+  // urlSections: string[];
   query: { [key: string]: string };
   urlParameters: { [key: string]: string };
   renderPageFunctions: RenderPageFunctionsType;
@@ -143,7 +143,7 @@ export const initializePage = async (newUrl?: string) => {
 
   const props: PageProps = {
     url,
-    urlSections: url.split('/').filter((i) => !!i),
+    // urlSections: url.split('/').filter((i) => !!i),
     query: Object.fromEntries(new URLSearchParams(queryString)), // new URLSearchParams(queryString),
     urlParameters: {},
     renderPageFunctions: _lupineJs.renderPageFunctions,
