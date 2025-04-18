@@ -9,32 +9,6 @@ export type MessageBoxProps = FloatWindowShowProps & {
   buttonType: MessageBoxButtonProps;
 };
 
-export const MessageBoxInput = (title: string, defaultValue: string, onInputChanged: (option: string) => void) => {
-  return (
-    <div>
-      <div>{title}</div>
-      <div>
-        <input class='input-base' onChange={(e: any) => onInputChanged(e?.target?.value)} value={defaultValue} />
-      </div>
-    </div>
-  );
-};
-
-export const MessageBoxSelect = (title: string, options: string[], onOptionChanged: (option: string) => void) => {
-  return (
-    <div>
-      <div>{title}</div>
-      <div>
-        <select class='input-base' onChange={(e: any) => onOptionChanged(e?.target?.value)}>
-          {options.map((option) => (
-            <option>{option}</option>
-          ))}
-        </select>
-      </div>
-    </div>
-  );
-};
-
 export class MessageBox {
   static async show({
     title,

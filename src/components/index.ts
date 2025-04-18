@@ -1,6 +1,7 @@
 export * from './float-window';
 export * from './grid';
 export * from './html-var';
+export * from './input-with-title';
 export * from './link-item';
 export * from './link-list';
 export * from './menu-bar';
@@ -19,6 +20,7 @@ export * from './popup-menu';
 export * from './progress';
 export * from './redirect';
 export * from './resizable-splitter';
+export * from './select-with-title';
 export * from './svg';
 export * from './text-glow';
 export * from './text-wave';
