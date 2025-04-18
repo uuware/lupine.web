@@ -1,3 +1,4 @@
+export * from './editable-label';
 export * from './float-window';
 export * from './grid';
 export * from './html-var';
