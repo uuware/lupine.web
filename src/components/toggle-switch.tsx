@@ -1,4 +1,4 @@
-import { CssProps, RefProps } from 'lupine.js';
+import { bindGlobalStyles, CssProps, RefProps } from 'lupine.js';
 
 export enum ToggleSwitchSize {
   Small = 'small',
@@ -55,7 +55,7 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
       left: '0',
       right: '0',
       bottom: '0',
-      backgroundColor: '#ccc',
+      backgroundColor: 'var(--toggle-background-color, #c7c7c7)',
       transition: '.4s',
       borderRadius: '34px',
     },
@@ -67,7 +67,7 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
       width: '26px',
       left: '4px',
       bottom: '4px',
-      backgroundColor: 'white',
+      backgroundColor: 'var(--toggle-ball-color, #fff)',
       transition: '.4s',
       borderRadius: '50%',
     },
@@ -85,11 +85,11 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
     },
 
     '.ts-checkbox:checked + .ts-slider': {
-      backgroundColor: '#2196F3',
+      backgroundColor: 'var(--toggle-checked-color, #0a74c9)',
     },
 
     '.ts-checkbox:focus + .ts-slider': {
-      boxShadow: '0 0 1px #2196F3',
+      boxShadow: '0 0 1px var(--toggle-checked-color, #0a74c9)',
     },
 
     '.ts-checkbox:checked + .ts-slider .ts-circle': {
@@ -102,6 +102,16 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
       transform: 'translateX(31px)',
     },
   };
+  // this is a sample to add variables for a theme
+  const cssTheme: CssProps = {
+    '[data-theme="dark" i]': {
+      '--toggle-ball-color': '#000000',
+      '--toggle-checked-color': '#004073',
+      '--toggle-background-color': '#262626',
+    },
+  };
+
+  bindGlobalStyles('toggle-switch-theme', '', cssTheme);
   const cssSize =
     props.size === ToggleSwitchSize.Small ? 'small' : props.size === ToggleSwitchSize.Large ? 'large' : '';
   return (

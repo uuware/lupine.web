@@ -1,3 +1,4 @@
+export * from './drag-refresh';
 export * from './editable-label';
 export * from './float-window';
 export * from './grid';

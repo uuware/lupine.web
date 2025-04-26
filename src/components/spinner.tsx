@@ -70,7 +70,7 @@ export const Spinner02 = ({
 };
 
 // color should be space splited RGB colors
-export const Spinner03 = ({ size = SpinnerSize.Medium, colorRGB = '88 88 88' }: { size?: SpinnerSize; colorRGB?: string }) => {
+export const Spinner03 = ({ size = SpinnerSize.Medium, colorRGB = '55 55 55' }: { size?: SpinnerSize; colorRGB?: string }) => {
   const css: any = {
     width: size,
     height: size,
