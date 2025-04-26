@@ -23,6 +23,8 @@ export class PageRouter {
   private filter: PageRouterCallback | undefined;
   private framePage: FramePageProps | undefined;
 
+  // if the filter returns null (passed filter), the router will continue.
+  // it works in the same way as in use method
   setFilter(filter: PageRouterCallback) {
     this.filter = filter;
   }

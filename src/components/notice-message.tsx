@@ -83,7 +83,7 @@ export class NotificationMessage {
     }
   }
 
-  static sendMessage(message: string, backgroundColor = NotificationColor.Info, permanent = false) {
+  static sendMessage(message: string, backgroundColor = NotificationColor.Info, permanent = false, showTime = 3000) {
     if (!this.initialized) {
       this.initialized = true;
       this.init();
@@ -113,7 +113,7 @@ export class NotificationMessage {
         setTimeout(() => {
           this.container.removeChild(div);
         }, 1000);
-      }, 3000);
+      }, showTime);
     }
   }
 }

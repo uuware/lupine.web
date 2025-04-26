@@ -8,7 +8,7 @@ function webEnv(key: string, defaultValue: string): string;
 function webEnv(key: string, defaultValue: boolean): boolean;
 function webEnv(key: string, defaultValue: object): object;
 function webEnv(key: string, defaultValue: any): any {
-  // for SSR, the webEnv should be initialized. But for the FE, it should be initialized by the web-env script tag
+  // for SSR, the webEnv should be initialized. But for the FE, it should be initialized by the webEnv script tag
   if (!_webEnvInitialized) {
     const json = document.querySelector('#web-env')?.textContent;
     if (json) {
@@ -56,7 +56,7 @@ function webSetting(key: string, defaultValue: string): string;
 function webSetting(key: string, defaultValue: boolean): boolean;
 function webSetting(key: string, defaultValue: object): object;
 function webSetting(key: string, defaultValue: any): any {
-  // for SSR, the webSetting should be initialized. But for the FE, it should be initialized by the web-env script tag
+  // for SSR, the webSetting should be initialized. But for the FE, it should be initialized by the webSetting script tag
   if (!_webSettingInitialized) {
     const json = document.querySelector('#web-setting')?.textContent;
     if (json) {

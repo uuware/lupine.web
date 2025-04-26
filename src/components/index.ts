@@ -22,6 +22,7 @@ export * from './progress';
 export * from './redirect';
 export * from './resizable-splitter';
 export * from './select-with-title';
+export * from './spinner';
 export * from './svg';
 export * from './text-glow';
 export * from './text-wave';
