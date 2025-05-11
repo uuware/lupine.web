@@ -1,13 +1,15 @@
 import { CssProps, RefProps } from '../jsx';
 
+export type EditableLabelHookProps = {
+  updateValue?: (value: string) => void;
+};
+
 export type EditableLabelProps = {
   text: string;
   type?: 'text' | 'number';
   mandtory?: boolean;
   save?: (value: string) => void;
-  update?: {
-    updateValue?: (value: string) => void;
-  };
+  hook?: EditableLabelHookProps;
 };
 export const EditableLabel = (props: EditableLabelProps) => {
   let editFlag = false;
@@ -50,8 +52,8 @@ export const EditableLabel = (props: EditableLabelProps) => {
       }
     }
   };
-  if (props.update) {
-    props.update.updateValue = (value: string) => {
+  if (props.hook) {
+    props.hook.updateValue = (value: string) => {
       const el = ref.$('input.editable-label');
       el.value = value;
     };

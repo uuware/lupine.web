@@ -1,12 +1,12 @@
 import { RefProps } from '../jsx';
 import { HtmlVar } from './html-var';
 
-export type ProgressUpdateProps = {
+export type ProgressHookProps = {
   onProgress?: (percentage: number, chunkNumber: number, totalChunks: number) => void;
   onShow?: (show: boolean, title?: string) => void;
 };
 export type ProgressProps = {
-  update: ProgressUpdateProps;
+  hook: ProgressHookProps;
 };
 
 export const Progress = (props: ProgressProps) => {
@@ -53,7 +53,7 @@ export const Progress = (props: ProgressProps) => {
     },
   };
 
-  props.update.onProgress = (percentage: number, chunkNumber: number, totalChunks: number) => {
+  props.hook.onProgress = (percentage: number, chunkNumber: number, totalChunks: number) => {
     // console.log(`Upload progress: ${percentage}% (chunk ${chunkNumber} of ${totalChunks})`);
     percentage = Math.round(percentage * 100);
     const bar1 = document.querySelector('.progress-bar1') as HTMLElement;
@@ -62,7 +62,7 @@ export const Progress = (props: ProgressProps) => {
     bar2.style.width = `${1 - percentage}%`;
     dom.value = `${percentage}%`;
   };
-  props.update.onShow = (show: boolean, title?: string) => {
+  props.hook.onShow = (show: boolean, title?: string) => {
     if (title) {
       domTitle.value = title;
     }
@@ -74,7 +74,7 @@ export const Progress = (props: ProgressProps) => {
   };
 
   const ref: RefProps = {};
-  const domTitle = HtmlVar('上传文件');
+  const domTitle = HtmlVar('Progress');
   const dom = HtmlVar('0 %');
   return (
     <div ref={ref} css={css} class='progress-top d-none'>

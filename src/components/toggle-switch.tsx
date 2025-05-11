@@ -1,66 +1,69 @@
-import { bindGlobalStyles, CssProps, RefProps } from 'lupine.js';
+import { bindGlobalStyles, CssProps } from 'lupine.js';
+import { ToggleBase, ToggleBaseHookProps } from './toggle-base';
 
 export enum ToggleSwitchSize {
+  SmallSmall = 'smallsmall',
   Small = 'small',
   Medium = 'medium',
   Large = 'large',
 }
-
-export type ToggleSwitchUpdateProps = {
-  setState?: (checked: boolean) => void;
-  getValue?: () => boolean;
-};
-
 export type ToggleSwitchProps = {
-  size?: ToggleSwitchSize;
+  size: ToggleSwitchSize;
+  text?: { on: string; off: string };
+  textWidth?: string;
+  disabled?: boolean;
   checked?: boolean;
-  onChanged?: (checked: boolean) => void;
-  update?: ToggleSwitchUpdateProps;
+  onClick?: (checked: boolean) => void;
+  hook?: ToggleBaseHookProps;
 };
 export const ToggleSwitch = (props: ToggleSwitchProps) => {
-  const refCheck: RefProps = {};
-  if (props.update) {
-    props.update.getValue = () => refCheck.current.checked;
-    props.update.setState = (checked: boolean) => {
-      refCheck.current.checked = checked;
-    };
-  }
+  const sizeH =
+    props.size === ToggleSwitchSize.SmallSmall
+      ? 16
+      : props.size === ToggleSwitchSize.Small
+      ? 22
+      : props.size === ToggleSwitchSize.Large
+      ? 42
+      : 34;
+  const cssSize =
+    props.size === ToggleSwitchSize.SmallSmall
+      ? 'smallsmall'
+      : props.size === ToggleSwitchSize.Small
+      ? 'small'
+      : props.size === ToggleSwitchSize.Large
+      ? 'large'
+      : '';
+
   const css: CssProps = {
-    alignSelf: 'center',
-    '.ts-switch': {
+    width: `100%`,
+    height: `100%`,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    '& .ts-slider': {
       position: 'relative',
-      display: 'inline-block',
-      width: '60px',
-      height: '34px',
-    },
-    '&.small .ts-switch': {
-      width: '40px',
-      height: '24px',
-    },
-    '&.large .ts-switch': {
-      width: '80px',
-      height: '44px',
-    },
-
-    '.ts-switch .ts-checkbox': {
-      opacity: 0,
-      width: 0,
-      height: 0,
-    },
-
-    '.ts-switch .ts-slider': {
-      position: 'absolute',
       cursor: 'pointer',
-      top: '0',
-      left: '0',
-      right: '0',
-      bottom: '0',
       backgroundColor: 'var(--toggle-background-color, #c7c7c7)',
       transition: '.4s',
       borderRadius: '34px',
+      height: '100%',
+      display: 'flex',
+      padding: '0 27px 0 37px',
+      alignItems: 'center',
+    },
+    '&.smallsmall .ts-slider': {
+      padding: '0 8px 0 22px',
+      fontSize: '0.65rem',
+    },
+    '&.small .ts-slider': {
+      padding: '0 17px 0 27px',
+      fontSize: '0.85rem',
+    },
+    '&.large .ts-slider': {
+      padding: '0 37px 0 57px',
     },
 
-    '.ts-switch .ts-circle': {
+    '& .ts-slider .ts-circle': {
       position: 'absolute',
       content: '',
       height: '26px',
@@ -71,63 +74,83 @@ export const ToggleSwitch = (props: ToggleSwitchProps) => {
       transition: '.4s',
       borderRadius: '50%',
     },
-    '&.small .ts-switch .ts-circle': {
-      height: '20px',
-      width: '20px',
+    '&.smallsmall .ts-slider .ts-circle': {
+      height: '12px',
+      width: '12px',
+      left: '2px',
+      bottom: '2px',
+    },
+    '&.small .ts-slider .ts-circle': {
+      height: '18px',
+      width: '18px',
       left: '3px',
       bottom: '2px',
     },
-    '&.large .ts-switch .ts-circle': {
-      height: '40px',
-      width: '40px',
+    '&.large .ts-slider .ts-circle': {
+      height: '38px',
+      width: '38px',
       left: '4px',
       bottom: '2px',
     },
 
-    '.ts-checkbox:checked + .ts-slider': {
-      backgroundColor: 'var(--toggle-checked-color, #0a74c9)',
+    '& .ts-on-text, & .ts-off-text': {
+      display: 'none',
+      width: props.textWidth,
+    },
+    '&.toggle-on .ts-on-text': {
+      display: 'block',
+    },
+    '&.toggle-off .ts-off-text': {
+      display: 'block',
     },
 
-    '.ts-checkbox:focus + .ts-slider': {
-      boxShadow: '0 0 1px var(--toggle-checked-color, #0a74c9)',
+    '&.toggle-on .ts-slider': {
+      backgroundColor: 'var(--primary-accent-color, #0a74c9)',
+      padding: '0 47px 0 17px',
+    },
+    '&.smallsmall.toggle-on .ts-slider': {
+      padding: '0 18px 0 12px',
+    },
+    '&.small.toggle-on .ts-slider': {
+      padding: '0 27px 0 17px',
+    },
+    '&.large.toggle-on .ts-slider': {
+      padding: '0 72px 0 22px',
     },
 
-    '.ts-checkbox:checked + .ts-slider .ts-circle': {
-      transform: 'translateX(26px)',
+    '&.toggle-on .ts-slider .ts-circle': {
+      left: 'unset',
+      right: '3px',
     },
-    '&.small .ts-checkbox:checked + .ts-slider .ts-circle': {
-      transform: 'translateX(14px)',
-    },
-    '&.large .ts-checkbox:checked + .ts-slider .ts-circle': {
-      transform: 'translateX(31px)',
+    '&.disabled .ts-slider': {
+      cursor: 'not-allowed',
+      opacity: 'var(--primary-disabled-opacity)',
     },
   };
+
   // this is a sample to add variables for a theme
   const cssTheme: CssProps = {
     '[data-theme="dark" i]': {
       '--toggle-ball-color': '#000000',
-      '--toggle-checked-color': '#004073',
       '--toggle-background-color': '#262626',
     },
   };
 
   bindGlobalStyles('toggle-switch-theme', '', cssTheme);
-  const cssSize =
-    props.size === ToggleSwitchSize.Small ? 'small' : props.size === ToggleSwitchSize.Large ? 'large' : '';
   return (
-    <div css={css} class={`toggle-switch-box ${cssSize}`}>
-      <label class='ts-switch'>
-        <input
-          ref={refCheck}
-          class='ts-checkbox'
-          type='checkbox'
-          onChange={(e) => props.onChanged?.((e.target as any).checked)}
-          checked={props.checked}
-        />
+    <ToggleBase {...props} size={{ w: 'auto', h: sizeH }}>
+      <div
+        css={css}
+        class={`toggle-switch-component toggle-placeholder ${props.checked ? 'toggle-on' : 'toggle-off'}${
+          props.disabled ? ' disabled' : ''
+        } ${cssSize}`}
+      >
         <span class='ts-slider'>
+          <span class='ts-on-text'>{props.text?.on}</span>
           <span class='ts-circle'></span>
+          <span class='ts-off-text'>{props.text?.off}</span>
         </span>
-      </label>
-    </div>
+      </div>
+    </ToggleBase>
   );
 };

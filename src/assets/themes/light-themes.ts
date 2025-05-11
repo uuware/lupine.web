@@ -1,6 +1,6 @@
 import { sharedThemes } from './shared-themes';
 
-export const lightThemes = {
+export const lightThemes: { [key: string]: string } = {
   ...sharedThemes,
   '--theme-name': 'light',
 
@@ -17,6 +17,9 @@ export const lightThemes = {
   // '--secondary-color': '#505050',
   // '--secondary-bg-color': '#ffffff',
   // '--secondary-border': '1px solid #858585',
+  '--primary-opacity': 'unset', // used for dark theme
+  '--primary-disabled-opacity': '0.5', // used for dark theme
+  '--primary-accent-color': '#0a74c9', // used for radio and checkbox's background color
 
   // including menus, tabs, sidebars
   '--activatable-color-normal': 'var(--primary-color)',
@@ -73,17 +76,17 @@ export const lightThemes = {
   '--header-color': '#000080',
   '--header-bg-color': '#ffffff',
 
-  '--po-background': '#e5e5e5', //	Background for surfaces on top of primary background
-  // backgroundSecondary: '#f5f5f5', //	Secondary background
-  // backgroundOnSecondary: '#e5e5e5', //	Background for surfaces on top of secondary background
-  '--background-modifier-hover': '', //	Hovered elements
-  '--background-modifier-active-hover': '', //	Active hovered elements
-  '--background-modifier-border': '', //	Border color
-  '--background-modifier-border-hover': '', //	Border color (hover)
-  '--background-modifier-border-focus': '', //	Border color (focus)
-  '--background-modifier-error': '', //	Error background
-  '--background-modifier-error-hover': '', //	Error background (hover)
-  '--background-modifier-success': '', //	Success background
-  '--background-modifier-message': '', //	Messages background
-  '--background-modifier-form-field': '', //	Form field background
+  // '--po-background': '#e5e5e5', //	Background for surfaces on top of primary background
+  // // backgroundSecondary: '#f5f5f5', //	Secondary background
+  // // backgroundOnSecondary: '#e5e5e5', //	Background for surfaces on top of secondary background
+  // '--background-modifier-hover': '', //	Hovered elements
+  // '--background-modifier-active-hover': '', //	Active hovered elements
+  // '--background-modifier-border': '', //	Border color
+  // '--background-modifier-border-hover': '', //	Border color (hover)
+  // '--background-modifier-border-focus': '', //	Border color (focus)
+  // '--background-modifier-error': '', //	Error background
+  // '--background-modifier-error-hover': '', //	Error background (hover)
+  // '--background-modifier-success': '', //	Success background
+  // '--background-modifier-message': '', //	Messages background
+  // '--background-modifier-form-field': '', //	Form field background
 };

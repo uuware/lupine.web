@@ -9,6 +9,7 @@ export * from './lite-dom';
 export * from './logger';
 export * from './message-hub';
 export * from './observable';
+export * from './promise-timeout';
 export * from './simple-storage';
 export * from './stop-propagation';
 export * from './unique-id';

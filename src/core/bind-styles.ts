@@ -1,11 +1,8 @@
 import { CssProps } from '../jsx';
 import { getCurrentTheme, themeCookieName } from './bind-theme';
+import { camelToHyphens } from './camel-to-hyphens';
 // import { bindPageResetEvent } from './page-reset-events';
 import { bindPageLoadedEvent } from './page-loaded-events';
-
-const camelToHyphens = function (name: string) {
-  return name.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase());
-};
 
 const wrapCss = (className: string, cssText: string, mediaQuery?: string) => {
   // if (!className) {

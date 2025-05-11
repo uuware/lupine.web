@@ -1,7 +1,7 @@
 import { darkThemes } from './dark-themes';
 import { lightThemes } from './light-themes';
 
-export const baseThemes = {
+export const baseThemes: { [key: string]: { [key: string]: string } } = {
   light: lightThemes,
   dark: darkThemes,
   lightGreen: {

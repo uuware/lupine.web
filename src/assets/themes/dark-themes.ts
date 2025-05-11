@@ -1,6 +1,6 @@
 import { sharedThemes } from './shared-themes';
 
-export const darkThemes = {
+export const darkThemes: { [key: string]: string } = {
   ...sharedThemes,
   '--theme-name': 'dark',
 
@@ -16,6 +16,9 @@ export const darkThemes = {
   // '--secondary-color': '#b3b3b3',
   // '--secondary-bg-color': '#151515',
   // '--secondary-border': '1px solid #303030',
+  '--primary-opacity': '0.5', // used for dark theme
+  '--primary-disabled-opacity': '0.7', // used for dark theme
+  '--primary-accent-color': '#0c3c63', // used for radio and checkbox's background color
 
   // including menus, tabs
   '--activatable-color-normal': 'var(--primary-color)',
@@ -73,8 +76,8 @@ export const darkThemes = {
   '--header-color': '#000080',
   '--header-bg-color': '#000000',
 
-  '--background-primary': '#353536', //	Primary background
-  '--color-primary': '#e0e0e0', //	Primary text color
+  // '--background-primary': '#353536', //	Primary background
+  // '--color-primary': '#e0e0e0', //	Primary text color
   // backgroundPrimary: '', //	Primary background
   // backgroundOnPrimary: '', //	Background for surfaces on top of primary background
   // backgroundSecondary: '#f5f5f6', //	Secondary background

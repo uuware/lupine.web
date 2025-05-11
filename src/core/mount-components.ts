@@ -6,6 +6,7 @@ import { uniqueIdGenerator } from '../lib/unique-id';
 import { processStyle } from './bind-styles';
 // import { bindPageResetEvent } from './page-reset-events';
 import { replaceInnerhtml } from './replace-innerhtml';
+import { camelToHyphens } from './camel-to-hyphens';
 
 const logger = new Logger('mount-components');
 export const domUniqueId = uniqueIdGenerator('l'); // l means label
@@ -84,7 +85,7 @@ function renderAttribute(type: any, props: any, jsxNodes: any) {
         if (typeof props[i] === 'object') {
           let attrs = `${i}="`;
           for (let j in props[i]) {
-            attrs += `${j}:${props[i][j]};`;
+            attrs += `${camelToHyphens(j)}:${props[i][j]};`;
           }
           attrs += `"`;
           html.push(attrs);

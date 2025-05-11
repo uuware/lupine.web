@@ -1,4 +1,4 @@
-export const sharedThemes = {
+export const sharedThemes: { [key: string]: string } = {
   // z-index
   '--layer-cover': '10',
   '--layer-sidebar': '100',
