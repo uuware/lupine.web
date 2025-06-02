@@ -1,5 +1,12 @@
-// should return { size: number }
-const CHUNK_SIZE = 1024 * 500;
+const _saveChunkSize = {
+  size: 1024 * 500,
+};
+export const setChunkSize = (chunkSize: number) => {
+  _saveChunkSize.size = chunkSize;
+};
+export const getChunkSize = () => {
+  return _saveChunkSize.size;
+};
 export const checkUploadedFileSize = async (uploadUrl: string) => {
   const response = await fetch(uploadUrl + '?check-size=1', {
     method: 'POST',
@@ -35,7 +42,7 @@ export const uploadFile = async (
   file: File,
   uploadUrl: string,
   progressFn?: (percentage: number, chunkNumber: number, totalChunks: number) => void,
-  chunkSize = CHUNK_SIZE
+  chunkSize = _saveChunkSize.size
 ) => {
   // const uploadedSize = await checkUploadedFileSize(uploadUrl);
   let key = '';

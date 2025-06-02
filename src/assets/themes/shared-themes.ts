@@ -6,11 +6,11 @@ export const sharedThemes: { [key: string]: string } = {
   '--layer-float-window': '200',
   '--layer-modal': '300',
   '--layer-modal-over': '310',
-  '--layer-notice': '400',
-  '--layer-menu': '410', // popup menu
-  '--layer-menu-sub': '411',
-  '--layer-tooltip': '420',
-  '--layer-dragged-item': '500',
+  '--layer-menu': '400', // popup menu
+  '--layer-menu-sub': '410',
+  '--layer-notice': '500',
+  '--layer-tooltip': '510',
+  '--layer-dragged-item': '600',
 
   '--font-size-base': '16px',
   '--font-weight-base': '', //'400',
