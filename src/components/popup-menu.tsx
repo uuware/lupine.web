@@ -1,4 +1,4 @@
-import { RefProps, stopPropagation } from 'lupine.js';
+import { RefProps, stopPropagation } from 'lupine.web';
 
 export type PopupMenuOpenMenuProps = { handle?: Function };
 

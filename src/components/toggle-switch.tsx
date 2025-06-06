@@ -1,4 +1,4 @@
-import { bindGlobalStyles, CssProps } from 'lupine.js';
+import { bindGlobalStyles, CssProps } from 'lupine.web';
 import { ToggleBase, ToggleBaseHookProps } from './toggle-base';
 
 export enum ToggleSwitchSize {

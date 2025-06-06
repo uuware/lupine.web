@@ -2,7 +2,7 @@
 // Users who only use Preact for SSR might not specify "dom" in their lib in tsconfig.json
 /// <reference lib="dom" />
 
-// used by lupine.js
+// used by lupine.web
 export type CssProps = {
   [key: string]: string | number | null | undefined | CssProps;
 };

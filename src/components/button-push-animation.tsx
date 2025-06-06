@@ -1,4 +1,4 @@
-import { CssProps, RefProps } from 'lupine.js';
+import { CssProps, RefProps } from 'lupine.web';
 
 export enum ButtonPushAnimationSize {
   SmallSmall = 'button-ss',

@@ -3,7 +3,7 @@
   "amdName": "jsxRuntime",
   "version": "1.0.0",
   "private": true,
-  "description": "Lupine.js JSX runtime",
+  "description": "lupine.web JSX runtime",
   "main": "index.js",
   "module": "index.js",
   "umd:main": "index.js",
@@ -11,6 +11,6 @@
   "types": "src/index.d.ts",
   "license": "MIT",
   "peerDependencies": {
-    "lupine.js": "^1.0.0"
+    "lupine.web": "^1.0.0"
   }
 }

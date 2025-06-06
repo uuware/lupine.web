@@ -1,4 +1,4 @@
-import { CssProps, RefProps, VNode } from 'lupine.js';
+import { CssProps, RefProps, VNode } from 'lupine.web';
 
 export const PlayButtonSize = {
   Small: { w: 50, h: 50 },
